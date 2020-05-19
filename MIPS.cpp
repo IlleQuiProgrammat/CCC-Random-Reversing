@@ -2,11 +2,13 @@
 //
 
 #include "MIPS.h"
+#include "Emulator.h"
 
 using namespace std;
 
 int main()
 {
+	Emulator e;
 	cout << "Hello CMake." << endl;
 	return 0;
 }
