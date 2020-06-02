@@ -2,89 +2,88 @@
 
 #include <cstdint>
 #include <vector>
+#include <string>
+
 #include "Registers.h"
 
 const int STACK_SIZE = 1024*1024;
 
+typedef uint32_t reg;
+// TODO: Make note that this doesn't distinguish between positive and negative values
 class Emulator
 {
 public:
-	Emulator()
-	{
-		stack = new uint8_t[STACK_SIZE];
-	}
+	Emulator();
 
-	~Emulator()
-	{
-		delete[] stack;
-	}
+	~Emulator();
 
 	void run_noop();
 #pragma region arithmetic_operators
-	void run_add();
-	void run_sub();
-	void run_addi();
-	void run_addu();
-	void run_subu();
-	void run_addiu();
-	void run_mult();
-	void run_multu();
-	void run_div();
-	void run_divu();
+	void run_add(reg& d, reg& s, reg& t);
+	void run_sub(reg& d, reg& s, reg& t);
+	void run_addi(reg& d, reg& s, uint32_t imm);
+	void run_addu(reg& d, reg& s, reg& t);
+	void run_subu(reg& d, reg& s, reg& t);
+	void run_addiu(reg& d, reg& s, uint32_t imm);
+	void run_mult(reg& s, reg& t);
+	void run_multu(reg& s, reg& t);
+	void run_div(reg& s, reg& t);
+	void run_divu(reg& s, reg& t);
 #pragma endregion
 #pragma region logical_operators
-	void run_and();
-	void run_or();
-	void run_andi();
-	void run_ori();
-	void run_sll();
-	void run_sllv();
-	void run_srl();
-	void run_sra();
-	void run_srlv();
-	void run_xor();
-	void run_xori();
+	void run_and(reg& d, reg& s, reg& t);
+	void run_or(reg& d, reg& s, reg& t);
+	void run_andi(reg& d, reg& s, uint32_t imm);
+	void run_ori(reg& d, reg& s, uint32_t imm);
+	void run_sll(reg& d, reg& s, uint32_t imm);
+	void run_sllv(reg& d, reg& s, reg& t);
+	void run_srl(reg& d, reg& s, uint32_t imm);
+	// TODO: Warn that this does nothing
+	// void run_sra();
+	void run_srlv(reg& d, reg& s, reg& t);
+	void run_xor(reg& d, reg& s, reg& t);
+	void run_xori(reg& d, reg& s, uint32_t imm);
 #pragma endregion
 #pragma region memory_operators
-	void run_lw();
-	void run_lb();
-	void run_lui();
-	void run_sw();
-	void run_sb();
+	void run_lw(reg& d, reg& s, int32_t offset);
+	void run_lb(reg& d, reg& s, int32_t offset);
+	void run_lui(reg& d, uint16_t imm);
+	void run_sw(reg& s, reg& d, int32_t offset);
+	void run_sb(reg& s, reg& d, int32_t offset);
 
-	// TODO: 2 Pseudo instuctions.. how do we process them?
+	// TODO: 2 Pseudo instuctions.. how do we process them?.. ignore for now
 	void run_la();
 	void run_li();
 
-	void run_mfhi();
-	void run_mflo();
+	void run_mfhi(reg& d);
+	void run_mflo(reg& d);
 
 	// TODO: Not sure about category
-	void run_slt();
-	void run_slti();
-	void run_sltiu();
-	void run_sltu();
+	void run_slt(reg& d, reg& s, reg& t);
+	void run_slti(reg& d, reg& s, uint32_t imm);
+	void run_sltiu(reg& d, reg&s, uint32_t imm);
+	void run_sltu(reg& d, reg&s, reg& imm);
 
 	// TODO: Another pseudo-instruction
 	void run_move();
 #pragma endregion
 #pragma region branch_operators
-	void run_beq();
-	void run_bgez();
-	void run_bgezal();
-	void run_bgtz();
-	void run_blez();
-	void run_bltz();
-	void run_bltzal();
-	void run_bne();
+	void run_beq(reg& s, reg& t, int32_t offset);
+	void run_bgez(reg& s, int32_t offset);
+	void run_bgezal(reg& s, int32_t offset);
+	void run_bgtz(reg& s, int32_t offset);
+	void run_blez(reg& s, int32_t offset);
+	void run_bltz(reg& s, int32_t offset);
+	void run_bltzal(reg& s, int32_t offset);
+	void run_bne(reg& s, reg& t, int32_t offset);
 
-	void run_j();
-	void run_jal();
-	void run_jr();
+	void run_j(uint32_t target);
+	void run_jal(uint32_t target);
+	void run_jr(reg& s);
 
 #pragma endregion
 #pragma region syscalls
-	void run_syscall();
+	void run_syscall(std::string name);
 #pragma endregion 
 private:
 	Registers registers;

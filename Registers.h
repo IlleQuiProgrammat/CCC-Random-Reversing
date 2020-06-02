@@ -2,6 +2,104 @@
 
 #include <cstdint>
 
+// TODO: Convert this into arrays or something
+
+enum Register {
+	zero, // guess
+	at, // reserved for pseudo-instructions
+
+	// function return values
+	v0,
+	v1,
+
+	// function arguments - not preserved by subprograms
+	a0,
+	a1,
+	a2,
+	a3,
+
+	// Temporary registers -> not preserved by subprograms
+	t0,
+	t1,
+	t2,
+	t3,
+	t4,
+	t5,
+	t6,
+	t7,
+
+	// Saved registers -> preserved by subprograms
+	s0,
+	s1,
+	s2,
+	s3,
+	s4,
+	s5,
+	s6,
+	s7,
+
+	// More temporary registers
+	t8,
+	t9,
+
+	// Kernel registers
+	k0,
+	k1,
+
+	gp, // Global area pointer
+	sp, // Stack pointer
+	fp, // Frame pointer
+	ra, // return address
+
+	// FP return values
+	f0,
+	f1,
+	f2,
+	f3,
+
+	// Temporary registers
+	f4,
+	f5,
+	f6,
+	f7,
+	f8,
+	f9,
+	f10,
+
+	// First two(?) arguments to subprograms
+	f12,
+	f13,
+	f14,
+
+	// Unspecified
+	f15,
+
+	// Temporary registers
+	f16,
+	f17,
+	f18,
+
+	// Unspecified
+	f19,
+
+	// Saved registers
+	f20,
+	f21,
+	f22,
+	f23,
+	f24,
+	f25,
+	f26,
+	f27,
+	f28,
+	f29,
+	f30,
+	f31,
+	f32,
+	HI,
+	LO
+};
+
 struct Registers
 {
 	const uint32_t zero = 0; // guess
@@ -95,4 +193,8 @@ struct Registers
 	float f30 = 0.0;
 	float f31 = 0.0;
 	float f32 = 0.0;
+
+	uint32_t HI = 0;
+	uint32_t LO = 0;
+	uint32_t PC = 0;
 };
