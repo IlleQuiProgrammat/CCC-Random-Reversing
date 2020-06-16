@@ -50,59 +50,13 @@ enum Register {
 	sp, // Stack pointer
 	fp, // Frame pointer
 	ra, // return address
-
-	// FP return values
-	f0,
-	f1,
-	f2,
-	f3,
-
-	// Temporary registers
-	f4,
-	f5,
-	f6,
-	f7,
-	f8,
-	f9,
-	f10,
-
-	// First two(?) arguments to subprograms
-	f12,
-	f13,
-	f14,
-
-	// Unspecified
-	f15,
-
-	// Temporary registers
-	f16,
-	f17,
-	f18,
-
-	// Unspecified
-	f19,
-
-	// Saved registers
-	f20,
-	f21,
-	f22,
-	f23,
-	f24,
-	f25,
-	f26,
-	f27,
-	f28,
-	f29,
-	f30,
-	f31,
-	f32,
 	HI,
 	LO
 };
 
 struct Registers
 {
-	const uint32_t zero = 0; // guess
+	uint32_t zero = 0; // guess
 	uint32_t at = 0; // reserved for pseudo-instructions
 
 	// function return values
@@ -147,52 +101,6 @@ struct Registers
 	uint32_t sp = 0; // Stack pointer
 	uint32_t fp = 0; // Frame pointer
 	uint32_t ra = 0; // return address
-
-	// FP return values
-	float f0 = 0.0;
-	float f1 = 0.0;
-	float f2 = 0.0;
-	float f3 = 0.0;
-
-	// Temporary registers
-	float f4 = 0.0;
-	float f5 = 0.0;
-	float f6 = 0.0;
-	float f7 = 0.0;
-	float f8 = 0.0;
-	float f9 = 0.0;
-	float f10 = 0.0;
-
-	// First two(?) arguments to subprograms
-	float f12 = 0.0;
-	float f13 = 0.0;
-	float f14 = 0.0;
-
-	// Unspecified
-	float f15 = 0.0;
-
-	// Temporary registers
-	float f16 = 0.0;
-	float f17 = 0.0;
-	float f18 = 0.0;
-
-	// Unspecified
-	float f19 = 0.0;
-
-	// Saved registers
-	float f20 = 0.0;
-	float f21 = 0.0;
-	float f22 = 0.0;
-	float f23 = 0.0;
-	float f24 = 0.0;
-	float f25 = 0.0;
-	float f26 = 0.0;
-	float f27 = 0.0;
-	float f28 = 0.0;
-	float f29 = 0.0;
-	float f30 = 0.0;
-	float f31 = 0.0;
-	float f32 = 0.0;
 
 	uint32_t HI = 0;
 	uint32_t LO = 0;

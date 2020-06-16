@@ -17,7 +17,12 @@ public:
 
 	~Emulator();
 
-	void run_noop();
+	int rand();
+	void srand(uint32_t seed);
+	int exec(uint32_t instruction);
+	void run_noop() {};
+	void parse(std::string filename);
+
 #pragma region arithmetic_operators
 	void run_add(reg& d, reg& s, reg& t);
 	void run_sub(reg& d, reg& s, reg& t);
@@ -33,6 +38,7 @@ public:
 #pragma region logical_operators
 	void run_and(reg& d, reg& s, reg& t);
 	void run_or(reg& d, reg& s, reg& t);
+	void run_nor(reg& d, reg& s, reg& t);
 	void run_andi(reg& d, reg& s, uint32_t imm);
 	void run_ori(reg& d, reg& s, uint32_t imm);
 	void run_sll(reg& d, reg& s, uint32_t imm);
@@ -81,11 +87,31 @@ public:
 	void run_jal(uint32_t target);
 	void run_jr(reg& s);
 
+	uint32_t& getRegister(uint32_t number)
+	{
+		return ((uint32_t*)(&(this->registers)))[number];
+	}
+
 #pragma endregion
 #pragma region syscalls
 	void run_syscall(std::string name);
 #pragma endregion 
 private:
-	Registers registers;
+	volatile Registers registers;
 	uint8_t* stack;
+	uint32_t next_rand = 0;
+
+	const uint32_t opcodebitmask =	0b11111100000000000000000000000000;
+	const uint32_t opcodeshift =	26;
+	const uint32_t functbitmask =	0b00000000000000000000000000111111;
+	const uint32_t rsbitmask =		0b00000011111000000000000000000000;
+	const uint32_t rsbitshift =		21;
+	const uint32_t rtbitmask =		0b00000000000111110000000000000000;
+	const uint32_t rtbitshift =		16;
+	const uint32_t rdbitmask =		0b00000000000000001111100000000000;
+	const uint32_t rdbitshift =		11;
+	const uint32_t shamtbitmask =   0b00000000000000000000011111000000;
+	const uint32_t shamtbitshift =	6;
+	const uint32_t immbitmask =		0b00000000000000001111111111111111;
+	const uint32_t jformatbitmask = 0b00000011111111111111111111111111;
 };

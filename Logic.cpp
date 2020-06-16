@@ -10,6 +10,11 @@ void Emulator::run_or(reg& d, reg& s, reg& t)
 	d = s | t;
 }
 
+void Emulator::run_nor(reg& d, reg& s, reg& t)
+{
+	d = ~(s | t);
+}
+
 void Emulator::run_andi(reg& d, reg& s, uint32_t imm)
 {
 	d = s & imm;
