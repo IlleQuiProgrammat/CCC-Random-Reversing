@@ -84,14 +84,14 @@ addi $t3, $zero, 0x200
 add $t4, $zero, $t3
 
 lb $t5, 0($t1)
-lb $t6, 0($t1)
+lb $t6, 0($t2)
 xor $t5, $t5, $t6
-sb $t5, 0($4)
+sb $t5, 0($t4)
 addi $t1, $t1, 1
 addi $t2, $t2, 1
 addi $t4, $t4, 1
-bne $t5, $zero, 4
-addi $a0, $zero, 0x220
+bne $t5, $zero, -7
+addi $a0, $zero, 0x200
 ```
 site: http://www.kurtm.net/mipsasm/index.cgi
 ```
@@ -100,13 +100,13 @@ site: http://www.kurtm.net/mipsasm/index.cgi
 200b0200
 000b6020
 812d0000
-812e0000
+814e0000
 01ae6826
-a08d0000
+a18d0000
 21290001
 214a0001
 218c0001
-15a0fff5
-20040220
+15a00004
+20040200
 FFFFFFFF
 ```
