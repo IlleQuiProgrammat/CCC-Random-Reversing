@@ -27,7 +27,7 @@ void Emulator::run_syscall(std::string name)
 		std::stringstream builder;
 		while (pos < STACK_SIZE && stack[pos] != 0)
 		{
-			builder << (char)stack[pos];
+			builder << (char)stack[pos++];
 		}
 		std::cout << builder.str() << std::endl;
 	}
@@ -115,6 +115,8 @@ int Emulator::exec(uint32_t instruction)
 				run_jr(rs);
 				return -1;
 				break;
+			case 0b100110:
+				run_xor(rd, rs, rt);
 		}
 	}
 
@@ -143,11 +145,9 @@ int Emulator::exec(uint32_t instruction)
 			break;
 		case 8:
 			run_addi(rt, rs, imm);
-			return -1;
 			break;
 		case 9:
 			run_addiu(rt, rs, imm);
-			return -1;
 			break;
 		case 12:
 			run_andi(rt, rs, imm);
@@ -170,7 +170,18 @@ int Emulator::exec(uint32_t instruction)
 		case 43:
 			run_sw(rt, rs, imm);
 			break;
+		case 0b100000:
+			run_lb(rt, rs, imm);
+			break;
+		case 0b101000:
+			run_sb(rt, rs, imm);
+			break;
 	}
+	if (instruction == 0xFFFFFFFF)
+	{
+		run_syscall("print");
+	}
+
 	return 0;
 }
 
@@ -199,7 +210,7 @@ void Emulator::parse(std::string filename)
 		fixed_instructions[i] = instructions[currand];
 		found.emplace(currand);
 	}
-	while (this->registers.PC <= length && this->registers.PC >= 0)
+	while (this->registers.PC < length && this->registers.PC >= 0)
 	{
 		if (exec(fixed_instructions[this->registers.PC]) != -1)
 		{
