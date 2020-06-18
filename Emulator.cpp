@@ -171,6 +171,7 @@ int Emulator::exec(uint32_t instruction)
 			run_sw(rt, rs, imm);
 			break;
 	}
+	return 0;
 }
 
 
@@ -205,4 +206,12 @@ void Emulator::parse(std::string filename)
 			this->registers.PC += 1;
 		}
 	}
+}
+
+void Emulator::loadMemory(std::string stackfile)
+{
+	std::ifstream stackf(stackfile, std::ios::binary);
+	if (stackf.is_open())
+		stackf.read((char*)this->stack, STACK_SIZE);
+	stackf.close();
 }

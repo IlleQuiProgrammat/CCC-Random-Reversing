@@ -22,7 +22,7 @@ public:
 	int exec(uint32_t instruction);
 	void run_noop() {};
 	void parse(std::string filename);
-
+	void loadMemory(std::string stackfile);
 #pragma region arithmetic_operators
 	void run_add(reg& d, reg& s, reg& t);
 	void run_sub(reg& d, reg& s, reg& t);
