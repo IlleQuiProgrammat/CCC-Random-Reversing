@@ -1,9 +1,5 @@
 cd ./build/service/
-cp ../../code.txt .
-./MIPS
-rm code.txt
+cat ../../code.txt | ./MIPS
 cd ../download/
-cp ../../code.txt .
-./MIPS
-rm code.txt
+cat ../../code.txt | ./MIPS
 cd ../../

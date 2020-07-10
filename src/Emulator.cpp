@@ -188,18 +188,18 @@ int Emulator::exec(uint32_t instruction)
 
 void Emulator::parse(std::string filename)
 {
-	std::ifstream input(filename, std::ios_base::in);
-	if (!input.is_open())
-	{
-		throw std::runtime_error("Failed to open file");
-	}
+	//std::ifstream input(filename, std::ios_base::in);
+	//if (!input.is_open())
+	//{
+	//	throw std::runtime_error("Failed to open file");
+	//}
 	int seed, length;
-	input >> seed >> length;
+	std::cin >> seed >> length;
 	this->srand(seed);
 	std::vector<uint32_t> instructions(length);
 	std::vector<uint32_t> fixed_instructions(length);
 	std::unordered_set<int> found;
-	for (auto& it : instructions) input >> it;
+	for (auto& it : instructions) std::cin >> it;
 	for (int i = 0; i < length; i++)
 	{
 		int currand = rand() % length;
