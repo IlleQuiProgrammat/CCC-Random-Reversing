@@ -6,7 +6,7 @@ Repository for the Random Reversing challenge for CCC
 
 ## Flag
 
-Flag: `CCCCTF{scr4mBIED_M1P5_!s_f8n_59}`
+Flag: `CCCCTF{B4cK@17AgA1n#st7yR#|don2}`
 
 ## Briefing
 
